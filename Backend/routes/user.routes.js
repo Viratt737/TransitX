@@ -6,7 +6,8 @@ router.post('/register', [
     body('email').isEmail().withMessage('Invail email'),
     body('fullname.firstname').isLength({min: 3}).withMessage('First name must be at least 3 charcters'),
     body('password').isLength({min : 6}).withMessage('password must me at leat 6 characters long')
-], userController.registerUser);
+], userController.registerUser
+);
 
 
 

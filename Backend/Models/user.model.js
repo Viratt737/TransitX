@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const JWT = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const userSchema = new mongoose.Schema({
       fullname:{
          firstname:{
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
             minlength :3
          }
       },
-      emial:{
+      email:{
         type:String,
         required: true,
         unique : true,
@@ -32,38 +32,21 @@ const userSchema = new mongoose.Schema({
 });
 
 // JWT token
-userSchema.method.generateAuthToken = function (){
-    try{
-       return JWT.sign(
-        {
-            _id:this._id
-        },
-        process.env.JWT_SECRET_KEY,
-         {
-            expiresIn : "24h"
-         }
-       );
-    }catch(err){
-        console.log(err);
-    }
+userSchema.methods.generateAuthToken = function () {
+   const token = jwt.sign(
+       { _id: this._id },
+       process.env.JWT_SECRET_KEY,
+       { expiresIn: '24h' }
+   );
+   return token;
 };
 
-// compare Password 
-userSchema.method.comparePassword = async function(enteredPassword){
-    try{
-        return await bcrypt.compare(enteredPassword, this.password);
-    }catch(err){
-        console.log(err);
-    };
-}
+userSchema.methods.comparePassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 
-// hash Password
-userSchema.method.hashPassword = async function(password){
-    try{
-        return await bcrypt.hash(password, 10);
-    }catch(err){
-        console.log(err);
-    }
+userSchema.statics.hashPassword = async function(password){
+    return await bcrypt.hash(password, 10);
 };
 
 const userModel = mongoose.model('user', userSchema);
