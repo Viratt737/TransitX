@@ -68,7 +68,7 @@ module.exports.logoutUser = async(req, res, next) =>{
     res.clearCookie('token');
     const token = req.cookie.token || req.headers.authorization.spit(' ')[1];
     await blackListTokenModel.create({token});
-
+   
     res.status(200).json({
         msg :"logged out"
     });
