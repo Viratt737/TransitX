@@ -15,6 +15,10 @@ const UserLogin = () => {
     }
 
     setUserData(data)
+
+    // clear inputs after submit
+    setEmail('')
+    setPassword('')
   }
 
   return (
@@ -66,7 +70,9 @@ const UserLogin = () => {
         <Link
           to='/rider-login'
           className='bg-[#10b461] flex items-center justify-center text-white font-semibold mb-5 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
-        >Sign in as Rider</Link>
+        >
+          Sign in as Rider
+        </Link>
       </div>
     </div>
   )
