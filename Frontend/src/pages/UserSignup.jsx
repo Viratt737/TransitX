@@ -36,11 +36,11 @@ const submitHandler = async (e) => {
 
     if (response.status === 201) {
       setUser(data.user)
+       localStorage.setItem('token', data.token)
       navigate('/home')
     }
 
   } catch (error) {
-    // ← PURANA HATAO, YE NAYA DAALO
     console.log("STATUS:", error.response?.status)
     console.log("ERROR DATA:", JSON.stringify(error.response?.data, null, 2))
     alert(JSON.stringify(error.response?.data))
