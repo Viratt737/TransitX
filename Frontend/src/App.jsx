@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Route, Routes} from 'react-router-dom'
 import Start from'./pages/Start'
 import Home from './pages/Home'
@@ -9,6 +9,7 @@ import RiderSignup from './pages/RiderSignup'
 import UserProtectWrapper from './pages/UserProtectWrapper'
 import UserLogout from './pages/UserLogout'
 import RiderHome from './pages/RiderHome'
+import RiderLogout from './pages/RiderLogout'
 import RiderProtectWrapper from './pages/RiderProtectWrapper'
 function App() {
 
@@ -20,10 +21,12 @@ function App() {
         <Route path='/signup' element={<UserSignup />} />
         <Route path='/rider-login' element={<RiderLogin />} />
         <Route path='/rider-signup' element={<RiderSignup />} />
-        <Route path='/home' element={
+        <Route path='/home' 
+        element={
           <UserProtectWrapper>
             <Home />
         </UserProtectWrapper>} />
+
         <Route path='/user/logout' element={
           <UserProtectWrapper>
             <UserLogout />
@@ -32,6 +35,12 @@ function App() {
         <Route path='/rider-home' element={
           <RiderProtectWrapper>
             <RiderHome/>
+          </RiderProtectWrapper>
+        } />
+
+           <Route path='/captain/logout' element={
+          <RiderProtectWrapper>
+            <RiderLogout />
           </RiderProtectWrapper>
         } />
       </Routes>

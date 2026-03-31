@@ -1,7 +1,7 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {RiderDataContext} from '../context/RiderContext'
 import {useNavigate} from 'react-router-dom'
-
+import axios from "axios"
 
 const RiderProtectWrapper = ({children}) => {
 
@@ -9,16 +9,12 @@ const RiderProtectWrapper = ({children}) => {
     const navigate = useNavigate()
     const {rider, setRider} = useContext(RiderDataContext)
     const [isLoading, setIsLoading] = useState(true)
-    console.log(token)
-
-
 
     useEffect(() => {
         if(!token){
             navigate('/rider-login')
         }
-    } , [token])
-
+    
     axios.get(`${import.meta.env.VITE_BASE_URL}/rider/profile`,{
         header: {
             Authorization : `Bearer ${token}`
@@ -39,6 +35,9 @@ const RiderProtectWrapper = ({children}) => {
             <div>Loading..</div>
         )
     }
+
+    } , [token])
+
   return (
     <>
       {children}

@@ -1,14 +1,7 @@
-import React, { createContext, useState , useContext} from 'react'
+import { createContext, useState , useContext} from 'react'
 
 export const RiderDataContext = createContext()
 
-// export const useRider = () =>{
-//     const context = useContext(RiderContext);
-//     if(!context){
-//         throw new Error('useRider must be used within a RiderProvider');
-//     }
-//     return context
-// }
 const RiderContext = ({ children }) => {
 
   const [rider, setRider] = useState(null);
