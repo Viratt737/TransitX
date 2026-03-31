@@ -9,6 +9,7 @@ import RiderSignup from './pages/RiderSignup'
 import UserProtectWrapper from './pages/UserProtectWrapper'
 import UserLogout from './pages/UserLogout'
 import RiderHome from './pages/RiderHome'
+import RiderProtectWrapper from './pages/RiderProtectWrapper'
 function App() {
 
   return (
@@ -28,7 +29,11 @@ function App() {
             <UserLogout />
           </UserProtectWrapper>
         }/>
-        <Route path='/rider-home' element={<RiderHome/>} />
+        <Route path='/rider-home' element={
+          <RiderProtectWrapper>
+            <RiderHome/>
+          </RiderProtectWrapper>
+        } />
       </Routes>
      </div>
   )
