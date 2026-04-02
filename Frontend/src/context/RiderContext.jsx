@@ -3,7 +3,6 @@ import { createContext, useState , useContext} from 'react'
 export const RiderDataContext = createContext()
 
 const RiderContext = ({ children }) => {
-
   const [rider, setRider] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);

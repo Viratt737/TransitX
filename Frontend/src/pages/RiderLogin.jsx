@@ -14,12 +14,12 @@ const RiderLogin = () => {
     const submitHandler = async (e) => {
         e.preventDefault()
         
-        const riderData = {
+        const rider = {
             email : email,
             password
         }
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rider/login`, riderData)
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rider/login`, rider)
 
         if(response.status === 200){
             const data = response.data

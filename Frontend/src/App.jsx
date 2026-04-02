@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {Route, Routes} from 'react-router-dom'
-import Start from'./pages/Start'
+import Start from './pages/Start'
 import Home from './pages/Home'
 import UserLogin from './pages/UserLogin'
 import UserSignup from './pages/UserSignup'
@@ -23,7 +23,7 @@ function App() {
         <Route path='/rider-signup' element={<RiderSignup />} />
         <Route path='/home' 
         element={
-          <UserProtectWrapper>
+        <UserProtectWrapper>
             <Home />
         </UserProtectWrapper>} />
 

@@ -15,11 +15,7 @@ const UserSignup = () => {
   const navigate = useNavigate()
 
 
-
   const { user, setUser } = useContext(UserDataContext)
-
-
-
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -31,16 +27,23 @@ const UserSignup = () => {
       email: email,
       password: password
     }
-
+  //  try{
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
-
     if (response.status === 201) {
       const data = response.data
       setUser(data.user)
       localStorage.setItem('token', data.token)
       navigate('/home')
     }
+  // }catch (err) {
+  //   console.log("FULL ERROR:", err)
+  //   console.log("BACKEND RESPONSE:", err.response?.data)
 
+  //   alert(
+  //     err.response?.data?.message || 
+  //     "Something went wrong"
+  //   )
+  // }
 
     setEmail('')
     setFirstName('')

@@ -4,7 +4,8 @@ import { RiderDataContext } from '../context/RiderContext'
 import axios from 'axios'
 
 const RiderSignup = () => {
-
+  const navigate = useNavigate()
+  
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   const [email, setEmail] = useState('')
@@ -15,7 +16,7 @@ const RiderSignup = () => {
   const [vehicleType, setVehicleType] = useState('')
 
   const { rider, setRider } = useContext(RiderDataContext)
-  const navigate = useNavigate()
+  
 
   const submitHandler = async (e) => {  
     e.preventDefault()
