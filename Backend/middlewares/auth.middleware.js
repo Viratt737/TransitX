@@ -5,10 +5,10 @@ const blackListTokenModel = require('../Models/blacklisttoken.model');
 const riderModel = require('../Models/rider.model')
 
 module.exports.authUser = async (req, res, next) => {
-      console.log("=== AUTH CALLED ===")
-    console.log("COOKIE TOKEN:", req.cookies.token)
-    console.log("HEADER:", req.headers.authorization)
-    
+    //   console.log("=== AUTH CALLED ===")
+    // console.log("COOKIE TOKEN:", req.cookies.token)
+    // console.log("HEADER:", req.headers.authorization)
+
     const token = req.cookies.token || 
                   (req.headers.authorization && req.headers.authorization.split(' ')[1]);
 
