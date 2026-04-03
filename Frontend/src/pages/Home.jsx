@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import {useGSAP} from '@gsap/react'
 import gsap from 'gsap';
 import 'remixicon/fonts/remixicon.css'
-
+import LocationSearchPanel from "../components/LocationSearchPanel"
 function Home() {
   const [pickup, setPickup] = useState('')
   const [destination, setDestination] = useState('')
@@ -41,7 +41,6 @@ function Home() {
 
   return (
     <div className='h-screen relative'>
-      
       <img
         className='w-16 absolute left-5 top-5'
         src="https://freelogopng.com/images/all_img/1659761100uber-logo-png.png"
@@ -95,11 +94,12 @@ function Home() {
           />
         </form>
         </div>
-        <div ref={panelRef} className='h-0  bg-red-500 '>
-
+        <div ref={panelRef} className='h-0  bg-white'>
+             <LocationSearchPanel />
         </div>
       </div>
-
+      
+      
     </div>
   )
 }
