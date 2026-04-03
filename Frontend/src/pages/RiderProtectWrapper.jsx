@@ -25,6 +25,7 @@ const RiderProtectWrapper = ({ children }) => {
                 setIsLoading(false)
             }
         }).catch(err => {
+            console.log(err)
             localStorage.removeItem('token')
             navigate('/rider-login')
         })

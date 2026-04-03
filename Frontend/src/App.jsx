@@ -34,7 +34,7 @@ function App() {
         }/>
         <Route path='/rider-home' element={
           <RiderProtectWrapper>
-            <RiderHome/>
+            <RiderHome />
           </RiderProtectWrapper>
         } />
 
