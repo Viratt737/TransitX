@@ -132,8 +132,12 @@ function Home() {
           <VehiclePanel  setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel} />
       </div>
 
-     <div ref={confirmRidePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6'>
-          <ConfirmRide />
+     <div ref={confirmRidePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
+          <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel}/>
+      </div>
+
+      <div className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
+          
       </div>
  
     </div>
