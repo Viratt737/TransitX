@@ -28,7 +28,7 @@ const LookingForDriver = (props) => {
                  <i className="text-lg ri-money-rupee-circle-fill"></i>
                    <div>
                      <h3 className='text-lg font-medium'>190.01</h3>
-                     <p className='text-base text-gray-500'>Payment</p>
+                     <p className='text-base text-gray-500'>Charge</p>
                    </div>
                 </div>
             </div>
