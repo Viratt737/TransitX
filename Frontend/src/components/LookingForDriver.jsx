@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LookingForDriver = () => {
+const LookingForDriver = (props) => {
   return (
      <div>
         <h5 className='p-3 text-center w-[90%] absolute top-0' onClick={()=>{

@@ -6,6 +6,7 @@ import LocationSearchPanel from "../components/LocationSearchPanel"
 import VehiclePanel from '../components/VehiclePanel'
 import ConfirmRide from '../components/ConfirmRide'
 import LookingForDriver from '../components/LookingForDriver'
+import WaitingForDriver from '../components/WaitingForDriver'
 function Home() {
   const [pickup, setPickup] = useState('')
   const [destination, setDestination] = useState('')
@@ -16,8 +17,10 @@ function Home() {
   const vehiclePanelRef = useRef(null)
   const [confirmRidePanel,setConfirmRidePanel]= useState(false)
   const confirmRidePanelRef = useRef(null)
-  const [vehicleFound, setvehicleFound] = useState(false)
+  const [vehicleFound, setVehicleFound] = useState(false)
   const vehicleFoundRef = useRef(null)
+  const [waitingForDriver, setWaitingForDriver] = useState(false)
+  const waitingForDriverRef = useRef(null)
   const submitHandler = (e)=>{
         e.preventDefault()
   }
@@ -83,6 +86,17 @@ function Home() {
     }, [ vehicleFound ])
 
 
+  useGSAP(function () {
+        if (waitingForDriver) {
+            gsap.to(waitingForDriverRef.current, {
+                transform: 'translateY(0)'
+            })
+        } else {
+            gsap.to(waitingForDriverRef.current, {
+                transform: 'translateY(100%)'
+            })
+        }
+    }, [ waitingForDriver ])
 
   return (
     <div className='h-screen relative overflow-hidden'>
@@ -149,13 +163,17 @@ function Home() {
       </div>
 
      <div ref={confirmRidePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
-          <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} setvehicleFound={setvehicleFound}/>
+          <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} />
       </div>
 
       <div ref={vehicleFoundRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
-          <LookingForDriver />
+          <LookingForDriver setVehicleFound={setVehicleFound} />
       </div>
- 
+     
+     <div ref={waitingForDriverRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
+          <WaitingForDriver  waitingForDriver={waitingForDriver}/>
+      </div>
+
     </div>
   )
 }
