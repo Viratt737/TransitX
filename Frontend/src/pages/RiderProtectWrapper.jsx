@@ -15,7 +15,7 @@ const RiderProtectWrapper = ({ children }) => {
             navigate('/rider-login')
         }
 
-        axios.get(`${import.meta.env.VITE_BASE_URL}/riders/profile`, {
+        axios.get(`${import.meta.env.VITE_BASE_URL}/rider/profile`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
