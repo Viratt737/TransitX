@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import RiderDetails from "../components/RiderDetails"
+import RidePopUp from '../components/RidePopUp'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
+import {useGSAP} from '@gsap/react'
 const RiderHome = (props) => {
+   const [ridePopUpPanel, setRidePopUpPanel] = useState(true)
+   const ridePopUpPanelRef = useRef(null)
+
+     useGSAP(function () {
+        if (ridePopUpPanel) {
+            gsap.to(ridePopUpPanelRef.current, {
+                transform: 'translateY(0)'
+            })
+        } else {
+            gsap.to(ridePopUpPanelRef.current, {
+                transform: 'translateY(100%)'
+            })
+        }
+    }, [ ridePopUpPanel ])
+
   return (
       <div className='h-screen'>
          <div className='fixed p-6 top-0 flex items-center justify-between w-full'>
@@ -24,6 +42,10 @@ const RiderHome = (props) => {
         <div className='h-2/5 p-6'>
             <RiderDetails/>
         </div>
+
+        <div ref={ridePopUpPanelRef} className='fixed z-10 bottom-0  w-full translate-y-full bg-white px-3 py-6 pt-12'>
+           <RidePopUp  setRidePopUpPanel={setRidePopUpPanel} />
+      </div>
     </div>
   )
 }
