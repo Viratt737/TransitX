@@ -12,6 +12,7 @@ import RiderHome from './pages/RiderHome'
 import RiderLogout from './pages/RiderLogout'
 import RiderProtectWrapper from './pages/RiderProtectWrapper'
 import Riding from './pages/Riding'
+import RiderRiding from './pages/RiderRiding'
 function App() {
 
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={<Start />} />
         <Route path='/login' element={<UserLogin />} />
         <Route path='/riding' element={<Riding />} />
+        <Route path='/rider-riding' element={<RiderRiding />} />
         <Route path='/signup' element={<UserSignup />} />
         <Route path='/rider-login' element={<RiderLogin />} />
         <Route path='/rider-signup' element={<RiderSignup />} />
