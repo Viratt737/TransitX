@@ -1,5 +1,6 @@
 import React, {useContext} from 'react'
 import {Route, Routes} from 'react-router-dom'
+import 'remixicon/fonts/remixicon.css'
 import Start from './pages/Start'
 import Home from './pages/Home'
 import UserLogin from './pages/UserLogin'
