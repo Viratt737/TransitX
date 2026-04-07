@@ -4,9 +4,12 @@ import RidePopUp from '../components/RidePopUp'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import {useGSAP} from '@gsap/react'
+import ConfirmRidePopUp from '../components/ConfirmRidePopUp'
 const RiderHome = (props) => {
    const [ridePopUpPanel, setRidePopUpPanel] = useState(true)
+   const [confirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false)
    const ridePopUpPanelRef = useRef(null)
+   const confirmRidePopUpPanelRef = useRef(null)
 
      useGSAP(function () {
         if (ridePopUpPanel) {
@@ -19,6 +22,18 @@ const RiderHome = (props) => {
             })
         }
     }, [ ridePopUpPanel ])
+
+         useGSAP(function () {
+        if (confirmRidePopUpPanel) {
+            gsap.to(confirmRidePopUpPanelRef.current, {
+                transform: 'translateY(0)'
+            })
+        } else {
+            gsap.to(confirmRidePopUpPanelRef.current, {
+                transform: 'translateY(100%)'
+            })
+        }
+    }, [ confirmRidePopUpPanel ])
 
   return (
       <div className='h-screen'>
@@ -44,7 +59,11 @@ const RiderHome = (props) => {
         </div>
 
         <div ref={ridePopUpPanelRef} className='fixed z-10 bottom-0  w-full translate-y-full bg-white px-3 py-6 pt-12'>
-           <RidePopUp  setRidePopUpPanel={setRidePopUpPanel} />
+           <RidePopUp  setRidePopUpPanel={setRidePopUpPanel} setConfirmRidePopUpPanel={setConfirmRidePopUpPanel} />
+      </div>
+
+       <div ref={confirmRidePopUpPanelRef} className='fixed h-full z-10 bottom-0  w-full translate-y-full bg-white px-3 py-6 pt-12'>
+           <ConfirmRidePopUp  setConfirmRidePopUpPanel={setConfirmRidePopUpPanel} setRidePopUpPanel={setRidePopUpPanel} />
       </div>
     </div>
   )
