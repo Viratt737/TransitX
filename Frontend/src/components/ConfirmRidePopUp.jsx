@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 const ConfirmRidePopUp = (props) => {
+    const [otp, setOtp] = useState('')
+    const submitHandler = (e) => {
+        e.preventDefault()
+    }
   return (
     <div >
          <div>
@@ -44,7 +48,7 @@ const ConfirmRidePopUp = (props) => {
                     <form onSubmit={(e) =>{
                         submitHandler(e)
                     }}>
-                    <input className='bg-[#eee] px-6 py-4 text-lg rounded-lg w-full mt-3 font-mono' type="text" placeholder='Enter OTP'/>
+                    <input value={otp} onChange={(e) =>setOtp(e.target.value)} className='bg-[#eee] px-6 py-4 text-lg rounded-lg w-full mt-3 font-mono' type="text" placeholder='Enter OTP'/>
                     <Link to ='/rider-riding' className='flex mt-5 justify-center bg-green-600 w-full text-white font-semibold p-2 px-10 rounded-lg'>Confirm</Link>
                     <button onClick={() => {
                        props.setConfirmRidePopUpPanel(false)
