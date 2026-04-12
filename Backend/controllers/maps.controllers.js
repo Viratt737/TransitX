@@ -19,23 +19,24 @@ module.exports.getCoordinates = async(req, res, next) =>{
     }
 }
 
-module.exports.getDistanceTime = async(req, res, next) =>{
-    try{
+module.exports.getDistanceTime = async(req, res, next) => {
+    try {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             return res.status(400).json({
-                errors : errors.array()
+                errors: errors.array()
             });
+        } 
 
-            const {origin, destination} = req.query;
+        const { origin, destination } = req.query;
 
-            const distanceTime = await mapService.getDistanceTime(origin, destination);
-            res.status(200).json(distanceTime);
-        }
-    }catch(err){
+        const distanceTime = await mapService.getDistanceTime(origin, destination);
+        res.status(200).json(distanceTime);
+
+    } catch(err) {
         console.log(err);
         res.status(500).json({
-            msg : "Internal server error"
+            msg: "Internal server error"
         });
     }
 }
