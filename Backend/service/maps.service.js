@@ -86,7 +86,6 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
 }
 
 
-// ─────────────────────────────────────────
 module.exports.getCaptainsInTheRadius = async (ltd, lng, radius) => {
     const captains = await riderModel.find({
         location: {
