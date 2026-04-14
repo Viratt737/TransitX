@@ -25,6 +25,7 @@ function Home() {
   const [ pickupSuggestions, setPickupSuggestions ] = useState([])
   const [ destinationSuggestions, setDestinationSuggestions ] = useState([])
   const [activeField, setActiveField] = useState('')
+  const [fare, setFare] = useState({})
       const handlePickupChange = async (e) => {
         setPickup(e.target.value)
         if (e.target.value.length < 3) return 
@@ -135,7 +136,19 @@ function Home() {
         }
     }, [ waitingForDriver ])
 
+    async function findTrip() {
+        setVehiclePanel(true)
+        setPanelOpen(false)
 
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/get-fare`, {
+            params: { pickup, destination },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        setFare(response.data)
+
+    }
   return (
     <div className='h-screen relative overflow-hidden'>
       <img
@@ -164,7 +177,7 @@ function Home() {
           <form className='relative py-3' onSubmit={(e) =>{
             submitHandler(e)
            }}>
-           <div className='line absolute h-12 w-1 top-[45%] left-7 bg-gray-700 rounded-full'></div>
+          
           <input 
             onClick={() =>{
               setPanelOpen(true)
@@ -188,7 +201,8 @@ function Home() {
             placeholder='Enter your destination'
           />
         </form>
-        <button className='bg-black text-white px-4 py-2 rounded-2xl mt-3 w-full'>
+        <button onClick={findTrip}
+        className='bg-black text-white px-4 py-2 rounded-2xl mt-3 w-full'>
             Find Trip
         </button>
         </div>
@@ -204,7 +218,7 @@ function Home() {
       </div>
       
       <div ref={vehiclePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6'>
-          <VehiclePanel  setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel} />
+          <VehiclePanel fare={fare} setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel} />
       </div>
 
      <div ref={confirmRidePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
