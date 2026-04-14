@@ -1,33 +1,34 @@
 import React from 'react'
 
 const LocationSearchPanel = (props) => {
-    const loactions = [
-        "4/184 Ambedkarpuram awas vikas kalyanpur kanpur",
-        "1st Floor, 118/330, Kaushalpuri, Gumti Number 5, Kanpur, Uttar Pradesh, 208012.",
-        "118/163-B, Kaushalpuri, Kanpur Nagar, Uttar Pradesh, 208012.",
-        "Commercial area (near Octave, Red Chief), Gumti No 5, Kanpur."
-    ]
-  return (
-    <div>
-         {
-            loactions.map(function(elem, idx){
-                return  <div  key={idx} onClick={() =>{
-                    props.setVehiclePanel(true)
-                    props.setPanelOpen(false)
-                }}
-                 className='flex gap-4 border-2 p-3 border-white active:border-black rounded-xl items-center my-2 justify-start'>
-            <h2 className='bg-white h-10 flex items-center justify-center w-16 rounded-full'>
-                <i className="ri-map-pin-line"></i>
-            </h2>
-            <h5 className='text-lg font-medium'>{elem}</h5>
-        </div>
-            })
-         }
-        
-    </div>
+    const { suggestions = [], setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField } = props
 
-    
-  )
+    return (
+        <div>
+            {suggestions.length > 0 ? suggestions.map((suggestion, idx) => (
+                <div
+                    key={idx}
+                    onClick={() => {
+                        if (activeField === 'pickup') {
+                            setPickup(suggestion)
+                        } else {
+                            setDestination(suggestion)
+                        }
+                        // setVehiclePanel(true)
+                        // setPanelOpen(false)
+                    }}
+                    className='flex gap-4 border-2 p-3 border-white active:border-black rounded-xl items-center my-2 justify-start cursor-pointer'
+                >
+                    <h2 className='bg-[#eee] h-10 flex items-center justify-center w-16 rounded-full'>
+                        <i className="ri-map-pin-line"></i>
+                    </h2>
+                    <h5 className='text-lg font-medium'>{suggestion}</h5>  {/* ✅ .description hata diya */}
+                </div>
+            )) : (
+                <p className='text-gray-400 text-center mt-5'>Type to search locations...</p>
+            )}
+        </div>
+    )
 }
 
 export default LocationSearchPanel

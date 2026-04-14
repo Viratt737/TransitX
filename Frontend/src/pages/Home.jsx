@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import axios from 'axios'
 import {useGSAP} from '@gsap/react'
 import gsap from 'gsap';
 import 'remixicon/fonts/remixicon.css'
@@ -21,6 +22,42 @@ function Home() {
   const vehicleFoundRef = useRef(null)
   const [waitingForDriver, setWaitingForDriver] = useState(false)
   const waitingForDriverRef = useRef(null)
+  const [ pickupSuggestions, setPickupSuggestions ] = useState([])
+  const [ destinationSuggestions, setDestinationSuggestions ] = useState([])
+  const [activeField, setActiveField] = useState('')
+      const handlePickupChange = async (e) => {
+        setPickup(e.target.value)
+        if (e.target.value.length < 3) return 
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`, {
+                params: { input: e.target.value },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+
+            })
+            console.log('API Response:', response.data)
+            setPickupSuggestions(response.data)
+        } catch {
+            // handle error
+        }
+    }
+
+    const handleDestinationChange = async (e) => {
+        setDestination(e.target.value)
+        if (e.target.value.length < 3) return
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`, {
+                params: { input: e.target.value },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            setDestinationSuggestions(response.data)
+        } catch {
+            // handle error
+        }
+    }
   const submitHandler = (e)=>{
         e.preventDefault()
   }
@@ -98,6 +135,7 @@ function Home() {
         }
     }, [ waitingForDriver ])
 
+
   return (
     <div className='h-screen relative overflow-hidden'>
       <img
@@ -123,18 +161,17 @@ function Home() {
               <i className="ri-arrow-down-wide-line"></i>
              </h5>
             <h4 className='text-2xl font-semibold'>Find A trip</h4>
-        <form onSubmit={(e) =>{
+          <form className='relative py-3' onSubmit={(e) =>{
             submitHandler(e)
-        }}>
+           }}>
            <div className='line absolute h-12 w-1 top-[45%] left-7 bg-gray-700 rounded-full'></div>
           <input 
             onClick={() =>{
               setPanelOpen(true)
+              setActiveField('pickup')
             }}
             value={pickup}
-            onChange={(e) =>{
-              setPickup(e.target.value)
-            }}
+            onChange={handlePickupChange}
             className='bg-[#eee] px-4 py-2 text-lg rounded-lg w-full mt-3'
             type="text"
             placeholder='Add a pick-up location'
@@ -142,19 +179,27 @@ function Home() {
           <input 
             onClick={() =>{
               setPanelOpen(true)
+              setActiveField('destination')
             }}
             value={destination}
-            onChange={(e) =>{
-              setDestination(e.target.value)
-            }}
+            onChange={handleDestinationChange}
             className='bg-[#eee] px-4 py-2 text-lg rounded-lg w-full mt-3'
             type="text"
             placeholder='Enter your destination'
           />
         </form>
+        <button className='bg-black text-white px-4 py-2 rounded-2xl mt-3 w-full'>
+            Find Trip
+        </button>
         </div>
         <div ref={panelRef} className='h-0  bg-white'>
-             <LocationSearchPanel setPanelOpen={setPanelOpen} vehiclePanel={vehiclePanel} setVehiclePanel={setVehiclePanel} />
+             <LocationSearchPanel setPanelOpen={setPanelOpen} vehiclePanel={vehiclePanel}  suggestions={activeField === 'pickup' ? pickupSuggestions : destinationSuggestions}
+             setVehiclePanel={setVehiclePanel} 
+             setPickup={setPickup}
+             setDestination={setDestination}
+             activeField={activeField}
+
+             />
         </div>
       </div>
       
