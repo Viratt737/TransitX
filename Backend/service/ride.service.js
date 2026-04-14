@@ -1,6 +1,7 @@
 const rideModel = require('../Models/ride.model');
 const mapService = require('./maps.service');
-
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 // async function getFare(pickup, destination){
 //     if(!pickup || !destination){
 //         throw new Error('Pickup and destination are required');
@@ -34,9 +35,7 @@ const mapService = require('./maps.service');
 //     return fare;
 
 // }
-// function generateOtp() {
-//     return Math.floor(1000 + Math.random() * 9000).toString();
-// }
+
 
 async function getFare(pickup, destination) {
     if (!pickup || !destination) {
@@ -60,6 +59,14 @@ async function getFare(pickup, destination) {
     };
 }
 
+function getOtp(num) {
+    function generateOtp(num) {
+        const otp = crypto.randomInt(Math.pow(10, num - 1), Math.pow(10, num)).toString();
+        return otp;
+    }
+    return generateOtp(num);
+}
+
 module.exports.createRide = async({user, pickup, destination, vehicleType}) => {
      if(!user || !pickup || !destination || !vehicleType){
         throw new Error("All fields are required");
@@ -71,9 +78,10 @@ module.exports.createRide = async({user, pickup, destination, vehicleType}) => {
         user,
         pickup,
         destination,
-        // otp: generateOtp(),
+        otp: getOtp(6),
         fare : fare[ vehicleType ]
      })
-     return ride;
+     
+     return await rideModel.findOne({ _id: ride._id }).select('+otp');;
 }
 
