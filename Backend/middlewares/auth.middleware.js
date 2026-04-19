@@ -12,7 +12,7 @@ module.exports.authUser = async (req, res, next) => {
     const token = req.cookies.token || 
                   (req.headers.authorization && req.headers.authorization.split(' ')[1]);
 
-     console.log("FINAL TOKEN:", token)
+    //  console.log("FINAL TOKEN:", token)
     if (!token) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -25,7 +25,6 @@ module.exports.authUser = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-        // ✅ FIXED: riderModel tha, userModel hona chahiye
         const user = await userModel.findById(decoded._id);
 
         if (!user) {

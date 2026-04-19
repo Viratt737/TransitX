@@ -51,7 +51,9 @@ module.exports.getAutoCompleteSuggestions = async(req, res, next) => {
         }
 
         const { input } = req.query;
-
+        if (!input || input.length < 3) {
+         return res.status(400).json({ error: 'Input too short' })
+        }
         const suggestions = await mapService.getAutoCompleteSuggestions(input);
         res.status(200).json(suggestions);
 
