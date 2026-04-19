@@ -248,7 +248,12 @@ function Home() {
           setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} />
       </div>
       <div ref={vehicleFoundRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
-          <LookingForDriver setVehicleFound={setVehicleFound} />
+          <LookingForDriver
+           fare={fare}
+           vehicleType={vehicleType}
+           pickup={pickup}
+           destination={destination}
+           setVehicleFound={setVehicleFound} />
       </div>
      
      <div ref={waitingForDriverRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
