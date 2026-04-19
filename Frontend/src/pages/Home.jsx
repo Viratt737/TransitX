@@ -26,6 +26,7 @@ function Home() {
   const [ destinationSuggestions, setDestinationSuggestions ] = useState([])
   const [activeField, setActiveField] = useState('')
   const [fare, setFare] = useState({})
+  const [ vehicleType, setVehicleType ] = useState(null)
       const handlePickupChange = async (e) => {
         setPickup(e.target.value)
         if (e.target.value.length < 3) return 
@@ -149,6 +150,20 @@ function Home() {
         setFare(response.data)
 
     }
+
+    async function createRide() {
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/create`, {
+            pickup,
+            destination,
+            vehicleType
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+    }
+
+
   return (
     <div className='h-screen relative overflow-hidden'>
       <img
@@ -218,13 +233,20 @@ function Home() {
       </div>
       
       <div ref={vehiclePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6'>
-          <VehiclePanel fare={fare} setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel} />
+          <VehiclePanel 
+          selectVehicle={setVehicleType}
+          fare={fare} setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel} />
       </div>
 
      <div ref={confirmRidePanelRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
-          <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} />
+          <ConfirmRide 
+          createRide={createRide}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+          setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} />
       </div>
-
       <div ref={vehicleFoundRef} className='fixed z-10 bottom-0 translate-y-full w-full bg-white px-3 py-6 pt-12'>
           <LookingForDriver setVehicleFound={setVehicleFound} />
       </div>
