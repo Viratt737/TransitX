@@ -1,12 +1,15 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
+import {RiderDataContext} from "../context/RiderContext"
 const RiderDetails = () => {
+  const {rider} = useContext(RiderDataContext)
+    // if (!rider) return null 
   return (
     <div>
-                    <div className='flex items-center justify-between'>
+                 <div className='flex items-center justify-between'>
               <div className='flex items-center justify-start gap-3'>
                 <img className='h-10 w-10 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBRImLvUm_sHU3FvABH6Cwga406z77arxOjQ&s" alt="" />
-                <h4>Piyush Mishra</h4>
+                {/* <h4>{rider.fullname.firstname+ " " + rider.fullname.lastname}</h4> */}
+                 <h4>{rider?.fullname?.firstname} {rider?.fullname?.lastname}</h4>
               </div>
               <div>
                 <h4 className='text-xl font-semibold text-green-600'>$295.20</h4>
